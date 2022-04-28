@@ -5,6 +5,14 @@ import PropTypes from 'prop-types';
 import { emailAction } from '../actions';
 
 class Login extends React.Component {
+// pressionar o botão 'Entrar' usando a tecla Enter
+// React.useEffect(() => { window.addEventListener('keydown', (event) => {
+//     if (event.key === 'Enter') {
+//       document.getElementsByClassName('logar').click();
+//     }
+//   })
+// });
+
   constructor(props) {
     super(props);
     this.state = {
@@ -70,6 +78,7 @@ render() {
       <Link to="/carteira">
         <button
           type="button"
+          className="logar"
           //  this.handleSubmit,
           //  history.push('/carteira');
           disabled={ this.allValidations() }
