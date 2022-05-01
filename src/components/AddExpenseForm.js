@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 class AddExpenseForm extends Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class AddExpenseForm extends Component {
     this.state = {
       expenseValue: '',
       description: '',
-      //   coin: 'BRL',
+      coin: 'BRL',
       payMethod: 'Dinheiro',
       tag: 'Trabalho',
     };
@@ -25,11 +25,11 @@ class AddExpenseForm extends Component {
  }
 
  render() {
-   const { handleChange, addExpense } = this.props;
+   const { handleChange, addExpense, filteredCoins } = this.props;
    const {
      expenseValue,
      description,
-     // coin,
+     coin,
      payMethod,
      tag,
    } = this.state;
@@ -103,11 +103,34 @@ class AddExpenseForm extends Component {
        >
          Adicionar despesa
        </button>
+
+       <label htmlFor="currency-input">
+         Moeda:
+         <select
+           name="currency-input"
+           id="currency-input"
+           data-testid="currency-input"
+           value={ coin }
+           onChange={ handleChange }
+         >
+           {filteredCoins.map((item, key) => (
+             <option
+               key={ key }
+             >
+               { item }
+             </option>
+           ))}
+         </select>
+       </label>
      </form>
 
    );
  }
 }
+
+const mapStateToProps = (state) => ({
+  filteredCoins: state.wallet.currencies,
+});
 
 AddExpenseForm.propTypes = {
   handleChange: propTypes.func,
@@ -116,4 +139,8 @@ AddExpenseForm.propTypes = {
 
 // Criar  mapStateToProps e dispatch
 
-export default AddExpenseForm;
+// const mapDispatchToProps = (dispatch) => ({
+//   myDispatch: (state) => dispatch(ActionQueSalvaAsDespesasNoEstadoGlobal(state)),
+// });
+
+export default connect(mapStateToProps, null)(AddExpenseForm);
