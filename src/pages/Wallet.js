@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { fetchApiCurrency } from '../actions';
+import AddExpenseForm from '../components/AddExpenseForm';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -16,6 +17,7 @@ class Wallet extends React.Component {
     return (
       <>
         <Header />
+        <AddExpenseForm />
         { FetchAPI ? <span>{filteredCoins}</span> : 'Buscando moedas...' }
       </>
     );
