@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { fetchApiCurrency } from '../actions';
 import AddExpenseForm from '../components/AddExpenseForm';
+import ExpensesTable from '../components/ExpensesTable';
 
 class Wallet extends React.Component {
   componentDidMount() {
@@ -19,6 +20,7 @@ class Wallet extends React.Component {
         <Header />
         <AddExpenseForm />
         { FetchAPI ? <span>{filteredCoins}</span> : 'Buscando moedas...' }
+        <ExpensesTable />
       </>
     );
   }
