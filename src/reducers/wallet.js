@@ -22,6 +22,11 @@ const wallet = (state = INICIAL_STATE, action) => {
         action.submit],
     };
 
+  case 'REMOVE_ACTION':
+    return {
+      ...state,
+      expenses: action.submit,
+    };
   default:
     return state;
   }

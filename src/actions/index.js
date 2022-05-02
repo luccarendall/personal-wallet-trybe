@@ -1,6 +1,7 @@
 export const EMAIL_ACTION = 'EMAIL_ACTION';
 export const WALLET_ACTION = 'WALLET_ACTION';
 export const FORM_ACTION = 'FORM_ACTION';
+export const REMOVE_ACTION = 'REMOVE_ACTION';
 
 export const emailAction = (email) => ({
   type: EMAIL_ACTION,
@@ -27,5 +28,10 @@ export function fetchApiCurrency() {
 
 export const formAction = (submit) => ({
   type: FORM_ACTION,
+  submit,
+});
+
+export const removeAction = (submit) => ({
+  type: REMOVE_ACTION,
   submit,
 });

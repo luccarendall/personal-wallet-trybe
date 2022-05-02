@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formAction } from '../actions';
 
 class AddExpenseForm extends Component {
-  constructor(props) {
-    super(props);
+  constructor({ expenses }) {
+    super({ expenses });
     this.state = {
+      id: expenses.length,
       value: '',
-      description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Trabalho',
+      description: '',
       exchangeRates: [],
-      id: -1,
     };
   }
 
@@ -31,7 +31,8 @@ class AddExpenseForm extends Component {
 
  // onClick
  addExpense = async () => {
-   this.setState((prevState) => ({ id: prevState.id + 1 }));
+   const { expenses } = this.props;
+   this.setState({ id: expenses.length });
    //  const {
    //    value,
    //    description,
@@ -182,7 +183,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 AddExpenseForm.propTypes = {
-  submitDispatch: propTypes.func,
+  submitDispatch: PropTypes.func,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddExpenseForm);
