@@ -28,6 +28,7 @@ class Wallet extends React.Component {
 // const mapStateToProps = (state) => ({ todos: state.todos.allTodos });
 const mapStateToProps = (state) => ({
   currencyAbbreviations: state.wallet.currencyAbbreviations,
+  expenses: state.wallet.expenses,
 });
 
 // mapDispatchToProps, por meio do qual você conseguirá enviar a ação para alterar o estado da aplicação.

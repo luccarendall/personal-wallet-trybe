@@ -3,8 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+  componentDidMount() {
+    const { totalExpenses } = this.props;
+    console.log(totalExpenses);
+  }
+
   render() {
-    const { userEmail } = this.props;
+    const { userEmail, totalExpenses } = this.props;
     return (
       <>
         <h2>
@@ -24,8 +29,10 @@ class Header extends Component {
         <p
           data-testid="total-field"
         >
-          0
-          {/* {totalExpenses} */}
+          { totalExpenses.length < 1 ? 0 : totalExpenses
+            .map((obj) => Number(obj.value)
+              * Number(obj.exchangeRates[obj.currency].ask))
+            .reduce((a, b) => a + b).toFixed(2) }
           {/* O pior é que se eu coloco 0 no lugar de totalExpenses o teste passa */}
         </p>
 
@@ -40,9 +47,9 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = ({ user: { email }, wallet: { payload } }) => ({
+const mapStateToProps = ({ user: { email }, wallet: { expenses } }) => ({
   userEmail: email,
-  totalExpenses: payload,
+  totalExpenses: expenses,
 });
 
 Header.propTypes = {

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { formAction } from '../actions';
 
 class AddExpenseForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      expenseValue: '',
+      value: '',
       description: '',
-      coin: 'BRL',
-      payMethod: 'Dinheiro',
+      currency: 'USD',
+      method: 'Dinheiro',
       tag: 'Trabalho',
+      exchangeRates: [],
+      id: -1,
     };
   }
 
@@ -20,17 +23,58 @@ class AddExpenseForm extends Component {
    this.setState({ [name]: value });
  };
 
- addExpense = () => {
-   // Criar função pra salvar no estado global
+ addFetch = async () => {
+   const data = await fetch('https://economia.awesomeapi.com.br/json/all');
+   const response = await data.json();
+   this.setState({ exchangeRates: response });
+ }
+
+ // onClick
+ addExpense = async () => {
+   this.setState((prevState) => ({ id: prevState.id + 1 }));
+   //  const {
+   //    value,
+   //    description,
+   //    currency,
+   //    method,
+   //    tag,
+   //    exchangeRates,
+   //  } = this.state;
+
+   const { submitDispatch } = this.props;
+
+   await this.addFetch();
+
+   //  const info = {
+   //    value,
+   //    description,
+   //    currency,
+   //    method,
+   //    tag,
+   //    exchangeRates,
+   //    id: expenses.length,
+   //  };
+
+   submitDispatch(this.state);
+
+   this.setState({
+     value: '',
+     description: '',
+     currency: 'USD',
+     method: 'Dinheiro',
+     tag: 'Trabalho',
+     //  exchangeRates: [],
+   });
+   //  console.log(test[1]?.exchangeRates[test[1].currency]);
  }
 
  render() {
-   const { handleChange, addExpense, filteredCoins } = this.props;
+   const { filteredcurrencys } = this.props;
    const {
-     expenseValue,
+     value,
      description,
-     coin,
-     payMethod,
+     currency,
+     method,
      tag,
    } = this.state;
 
@@ -42,9 +86,9 @@ class AddExpenseForm extends Component {
            type="number"
            id="value-input"
            data-testid="value-input"
-           name="value-input"
-           value={ expenseValue }
-           onChange={ handleChange }
+           name="value"
+           value={ value }
+           onChange={ this.handleChange }
          />
        </label>
        <br />
@@ -55,9 +99,9 @@ class AddExpenseForm extends Component {
            type="text"
            id="description-input"
            data-testid="description-input"
-           name="description-input"
+           name="description"
            value={ description }
-           onChange={ handleChange }
+           onChange={ this.handleChange }
          />
        </label>
        <br />
@@ -65,11 +109,11 @@ class AddExpenseForm extends Component {
        <label htmlFor="method-input">
          Método de Pagamento:
          <select
-           name="method-input"
+           name="method"
            id="method-input"
            data-testid="method-input"
-           value={ payMethod }
-           onChange={ handleChange }
+           value={ method }
+           onChange={ this.handleChange }
          >
            <option value="Dinheiro">Dinheiro</option>
            <option value="Cartão de crédito">Cartão de crédito</option>
@@ -81,11 +125,11 @@ class AddExpenseForm extends Component {
        <label htmlFor="tag-input">
          Categoria:
          <select
-           name="tag-input"
+           name="tag"
            id="tag-input"
            data-testid="tag-input"
            value={ tag }
-           onChange={ handleChange }
+           onChange={ this.handleChange }
          >
            <option value="Alimentação">Alimentação</option>
            <option value="Lazer">Lazer</option>
@@ -98,8 +142,8 @@ class AddExpenseForm extends Component {
        </label>
 
        <button
-         type="submit"
-         onClick={ addExpense }
+         type="button"
+         onClick={ this.addExpense }
        >
          Adicionar despesa
        </button>
@@ -107,13 +151,13 @@ class AddExpenseForm extends Component {
        <label htmlFor="currency-input">
          Moeda:
          <select
-           name="currency-input"
+           name="currency"
            id="currency-input"
            data-testid="currency-input"
-           value={ coin }
-           onChange={ handleChange }
+           value={ currency }
+           onChange={ this.handleChange }
          >
-           {filteredCoins.map((item, key) => (
+           {filteredcurrencys.map((item, key) => (
              <option
                key={ key }
              >
@@ -129,18 +173,16 @@ class AddExpenseForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  filteredCoins: state.wallet.currencies,
+  filteredcurrencys: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  submitDispatch: (form) => dispatch(formAction(form)),
 });
 
 AddExpenseForm.propTypes = {
-  handleChange: propTypes.func,
-  addExpense: propTypes.func,
+  submitDispatch: propTypes.func,
 }.isRequired;
 
-// Criar  mapStateToProps e dispatch
-
-// const mapDispatchToProps = (dispatch) => ({
-//   myDispatch: (state) => dispatch(ActionQueSalvaAsDespesasNoEstadoGlobal(state)),
-// });
-
-export default connect(mapStateToProps, null)(AddExpenseForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddExpenseForm);
