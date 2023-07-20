@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { emailAction } from '../actions';
+import './style/login.css';
 
 class Login extends React.Component {
 // pressionar o botão 'Entrar' usando a tecla Enter
@@ -48,47 +49,53 @@ render() {
   const { email, pwd } = this.state;
   const { myDispatch } = this.props;
   return (
-    <form>
+    <div>
+      <div>
+        <h1>Faça login na sua carteira</h1>
+      </div>
+      <form className="form-login">
 
-      <label htmlFor="email-input">
-        <input
-          type="text"
-          name="email"
-          placeholder="teste@teste.com"
-          required
-          onChange={ this.handleChange }
-          value={ email }
-          data-testid="email-input"
-        />
-      </label>
+        <label htmlFor="email-input" className="label-login">
+          <input
+            type="text"
+            name="email"
+            className="login-input"
+            placeholder="Seu email"
+            required
+            onChange={ this.handleChange }
+            value={ email }
+            data-testid="email-input"
+          />
+        </label>
 
-      <label htmlFor="pwd-input">
-        <input
-          type="password"
-          name="pwd"
-          placeholder="Senha"
-          required
-          onChange={ this.handleChange }
-          value={ pwd }
-          data-testid="password-input"
-        />
-      </label>
+        <label htmlFor="pwd-input" className="label-login">
+          <input
+            type="password"
+            name="pwd"
+            className="login-input"
+            placeholder="Senha"
+            required
+            onChange={ this.handleChange }
+            value={ pwd }
+            data-testid="password-input"
+          />
+        </label>
 
-      {/* https://stackoverflow.com/questions/42463263/wrapping-a-react-router-link-in-an-html-button */}
-      <Link to="/carteira">
-        <button
-          type="button"
-          className="logar"
-          //  this.handleSubmit,
-          //  history.push('/carteira');
-          disabled={ this.allValidations() }
-          onClick={ () => myDispatch(email) } // Btn que dispacha o que foi inserido nos inputs para a Store
-        >
-          Entrar
-        </button>
-      </Link>
-
-    </form>
+        {/* https://stackoverflow.com/questions/42463263/wrapping-a-react-router-link-in-an-html-button */}
+        <Link to="/carteira">
+          <button
+            type="button"
+            className="login-btn"
+            //  this.handleSubmit,
+            //  history.push('/carteira');
+            disabled={ this.allValidations() }
+            onClick={ () => myDispatch(email) } // Btn que dispacha o que foi inserido nos inputs para a Store
+          >
+            Entrar
+          </button>
+        </Link>
+      </form>
+    </div>
   );
 }
 }
