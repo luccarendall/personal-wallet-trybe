@@ -10,36 +10,37 @@ class Header extends Component {
 
   render() {
     const { userEmail, totalExpenses } = this.props;
+
+    // Extrair a parte antes do "@" no userEmail
+    const username = userEmail.split('@')[0];
+
     return (
       <>
         <h2>
           Olá,
           {' '}
-          {userEmail}
+          {username}
         </h2>
         {/* Email da pessoa usuária que fez login */}
-        <p
-          data-testid="email-field"
-        >
+        <p data-testid="email-field">
           {userEmail}
         </p>
 
         {/* Despesa total gerada pela lista de gastos */}
         Gastos totais:
-        <p
-          data-testid="total-field"
-        >
-          { totalExpenses.length < 1 ? 0 : totalExpenses
-            .map((obj) => Number(obj.value)
-              * Number(obj.exchangeRates[obj.currency].ask))
-            .reduce((a, b) => a + b).toFixed(2) }
-          {/* O pior é que se eu coloco 0 no lugar de totalExpenses o teste passa */}
+        <p data-testid="total-field">
+          {totalExpenses.length < 1
+            ? 0
+            : totalExpenses
+              .map(
+                (obj) => Number(obj.value) * Number(obj.exchangeRates[obj.currency].ask),
+              )
+              .reduce((a, b) => a + b)
+              .toFixed(2)}
         </p>
 
         {/* Câmbio está sendo utilizado, que será neste caso será 'BRL' */}
-        <p
-          data-testid="header-currency-field"
-        >
+        <p data-testid="header-currency-field">
           BRL
         </p>
       </>
