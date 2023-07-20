@@ -1,0 +1,32 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  background-color: aliceblue;
+  margin: 10px;
+  color: black;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.header-email {
+  margin-top: 10px;
+}
+
+.header-total {
+  display: flex;
+  margin-top: 10px;
+}
+
+.total-expenses{
+  margin-left: 5px;
+}
+
