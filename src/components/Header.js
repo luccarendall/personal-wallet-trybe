@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './style/header.css';
 
 class Header extends Component {
@@ -31,20 +32,20 @@ class Header extends Component {
         <div className="header-total">
           <div>
             <p>
-              Gastos totais:
+              Despesas totais:
             </p>
           </div>
           <p className="total-expenses" data-testid="total-field">
             {totalExpenses.length < 1
-              ? 0
-              : totalExpenses
+              ? 'R$ 0.00'
+              : `R$ ${totalExpenses
                 .map(
                   (
                     obj,
                   ) => Number(obj.value) * Number(obj.exchangeRates[obj.currency].ask),
                 )
                 .reduce((a, b) => a + b)
-                .toFixed(2)}
+                .toFixed(2)}`}
           </p>
         </div>
 
@@ -52,6 +53,7 @@ class Header extends Component {
         <p className="header-currency" data-testid="header-currency-field">
           BRL
         </p>
+        <Link to="/">Sair</Link>
       </div>
     );
   }

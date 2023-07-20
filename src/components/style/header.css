@@ -4,12 +4,11 @@
   left: 0;
   right: 0;
   display: flex;
+  color: black;
   align-items: center;
   justify-content: space-around;
   text-align: center;
-  background-color: aliceblue;
-  margin: 10px;
-  color: black;
+  background-color: #ffffff;
 }
 
 .header-title {
@@ -19,11 +18,11 @@
 
 .header-email {
   margin-top: 10px;
+  color: #ffffff;
 }
 
 .header-total {
   display: flex;
-  margin-top: 10px;
 }
 
 .total-expenses{

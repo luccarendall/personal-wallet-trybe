@@ -1,0 +1,62 @@
+/* Estilos gerais */
+body {
+  font-size: 1.3rem;
+}
+
+/* Container principal do formulário */
+.form-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 10px;
+  color:#141414;
+  padding: 10px;
+}
+
+/* Estilos para as colunas */
+.form-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Estilos para os rótulos (labels) */
+.input-label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Estilos para os campos de input e select */
+.input-field {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+}
+
+/* Estilos para o botão */
+.button {
+  /* margin-top: 10px; */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.button:focus {
+  outline: none;
+}
+
+select, .input-field, #value-input {
+  margin-left: 5px;
+}
